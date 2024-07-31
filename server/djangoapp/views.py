@@ -9,7 +9,6 @@ from .restapis import get_request, analyze_review_sentiments, post_review
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-
 # Create your views here.
 
 # Create a `login_user` view to handle sign-in request
@@ -25,7 +24,7 @@ def login_user(request):
     if user is not None:
         # Login user
         login(request, user)
-	    response_data = {"userName": username, "status": "Authenticated"}
+        response_data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(response_data)
 
 
