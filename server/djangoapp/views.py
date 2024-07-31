@@ -32,7 +32,7 @@ def login_user(request):
     user = authenticate(username=username, password=password)
     data = {"userName": username}
     if user is not None:
-	@@ -39,88 +34,85 @@ def login_user(request):
+	def login_user(request):
         data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(data)
 
