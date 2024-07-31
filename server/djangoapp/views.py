@@ -7,8 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 import logging
 import json
 
-from .restapis import get_request, analyze_review_sentiments, post_review
-
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -73,4 +71,45 @@ def registration(request):
     return JsonResponse(response_data)
 
 
-# Update the `get_dealership
+# Update the `get_dealerships` view to render the index page with a list of dealerships
+def get_dealerships(request, state="All"):
+    endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/{state}"
+    dealerships = get_request(endpoint)
+    return JsonResponse({"status": 200, "dealers": dealerships})
+
+
+# Create a `get_dealer_reviews` view to render the reviews of a dealer
+def get_dealer_reviews(request, dealer_id):
+    if dealer_id:
+        endpoint = f"/fetchReviews/dealer/{dealer_id}"
+        reviews = get_request(endpoint)
+        for review in reviews:
+            response = analyze_review_sentiments(review['review'])
+            review['sentiment'] = response['sentiment']
+        return JsonResponse({"status": 200, "reviews": reviews})
+    else:
+        return JsonResponse({"status": 400, "message": "Bad Request"})
+
+
+# Create a `get_dealer_details` view to render the dealer details
+def get_dealer_details(request, dealer_id):
+    if dealer_id:
+        endpoint = f"/fetchDealer/{dealer_id}"
+        dealership = get_request(endpoint)
+        return JsonResponse({"status": 200, "dealer": dealership})
+    else:
+        return JsonResponse({"status": 400, "message": "Bad Request"})
+
+
+# Create an `add_review` view to submit a review
+def add_review(request):
+    if not request.user.is_anonymous:
+        data = json.loads(request.body)
+        try:
+            post_review(data)
+            return JsonResponse({"status": 200})
+        except Exception as e:
+            logger.error(f"Error in posting review: {e}")
+            return JsonResponse({"status": 401, "message": "Error in posting review"})
+    else:
+        return JsonResponse({"status": 403, "message": "Unauthorized"})
