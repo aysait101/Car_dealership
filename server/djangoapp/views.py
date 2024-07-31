@@ -32,8 +32,8 @@ def login_user(request):
     user = authenticate(username=username, password=password)
     data = {"userName": username}
     if user is not None:
-	def login_user(request):
-        data = {"userName": username, "status": "Authenticated"}
+	    def login_user(request):
+		    data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(data)
 
 # Create a `logout_request` view to handle sign out request
