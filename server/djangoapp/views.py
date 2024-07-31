@@ -70,7 +70,6 @@ def registration(request):
     return JsonResponse(response_data)
 
 
-# Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request, state="All"):
     endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/{state}"
     dealerships = get_request(endpoint)
