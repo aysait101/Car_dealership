@@ -37,10 +37,9 @@ This project is a Full Stack web application developed as part of the IBM Full S
 - **CI/CD Pipeline**: Automates testing, linting, and deployment to a Kubernetes cluster.
 
 
-## Repository & References
-- **GitHub Repo**: [Project Repository](https://github.com/aysait101/xrwvm-fullstack_developer_capstone)
-- **Django Documentation**: [Django Docs](https://docs.djangoproject.com/en/stable/)
-- **MongoDB Documentation**: [MongoDB Docs](https://docs.mongodb.com/manual/)
-- **React Documentation**: [React Docs](https://reactjs.org/docs/getting-started.html)
+## Report
+- **Project Report**: [Report](/Documents/Final_Report.pdf)
+- **Project Presentation**: [Presentation](/Documents/car_dealership.pdf)
+
 
 
